@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8" />
+    <title>{% block title %}IFLanche{% endblock %}</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #e6f0e6; /* verde claro */
+            color: #333;
+            margin: 0;
+            padding: 20px;
+        }
+        h2 {
+            color: #2a6f2a; /* verde IFRN */
+        }
+        table {
+            border-collapse: collapse;
+            width: 100%;
+        }
+        th, td {
+            border: 1px solid #2a6f2a;
+            padding: 8px;
+            text-align: left;
+        }
+        th {
+            background-color: #4CAF50; /* verde IFRN */
+            color: white;
+        }
+    </style>
+</head>
+<body>
+    {% block content %}
+    <!-- conteúdo principal vai aqui -->
+    {% endblock %}
+</body>
+</html>

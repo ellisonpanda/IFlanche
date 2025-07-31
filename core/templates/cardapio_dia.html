@@ -1,0 +1,44 @@
+{% extends 'base.html' %}
+
+{% block title %}Cardápio do Dia{% endblock %}
+
+{% block content %}
+<h2>Cardápio da Semana</h2>
+
+<table border="1" cellpadding="8" cellspacing="0" style="width:100%; border-collapse: collapse;">
+    <thead>
+        <tr>
+            <th>Dia</th>
+            <th>Manhã</th>
+            <th>Tarde</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for dia, periodos in cardapio.items %}
+        <tr>
+            <td>
+                {% if dia == 'SEG' %}Segunda-feira{% elif dia == 'TER' %}Terça-feira
+                {% elif dia == 'QUA' %}Quarta-feira{% elif dia == 'QUI' %}Quinta-feira
+                {% elif dia == 'SEX' %}Sexta-feira{% else %}Outro{% endif %}
+            </td>
+            <td>
+                {% for lanche in periodos.manha %}
+                    <strong>{{ lanche.refeicao }}</strong><br>
+                    <small>{{ lanche.bebida }}</small><br>
+                {% empty %}
+                    Sem lanche
+                {% endfor %}
+            </td>
+            <td>
+                {% for lanche in periodos.tarde %}
+                    <strong>{{ lanche.refeicao }}</strong><br>
+                    <small>{{ lanche.bebida }}</small><br>
+                {% empty %}
+                    Sem lanche
+                {% endfor %}
+            </td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+{% endblock %}
