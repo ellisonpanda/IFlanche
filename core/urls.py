@@ -1,6 +1,9 @@
 from django.urls import path
-from .views import cardapio_semana
+from . import views
 
 urlpatterns = [
-    path('cardapio/', cardapio_semana, name='cardapio'),
+    path('', views.suap_login, name='index'),
+    path('logout/', views.logout_view, name='logout'),
+   path('cardapio/', views.cardapio_semana, name='cardapio'),
+  # já existente
 ]
