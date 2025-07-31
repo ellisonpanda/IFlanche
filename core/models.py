@@ -1,22 +1,28 @@
 from django.db import models
-class Lanche(models.Model):
-    DIA_SEMANA_CHOICES = [
-        ('SEG', 'Segunda-feira'),
-        ('TER', 'Terça-feira'),
-        ('QUA', 'Quarta-feira'),
-        ('QUI', 'Quinta-feira'),
-        ('SEX', 'Sexta-feira'),
-    ]
+DIAS_SEMANA = [
+    ('segunda', 'Segunda-feira'),
+    ('terca', 'Terça-feira'),
+    ('quarta', 'Quarta-feira'),
+    ('quinta', 'Quinta-feira'),
+    ('sexta', 'Sexta-feira'),
+]
 
-    PERIODO_CHOICES = [
-        ('MANHA', 'Manhã'),
-        ('TARDE', 'Tarde'),
-    ]
+class CardapioSemanal(models.Model):
+    semana = models.CharField(max_length=20)
 
-    dia_semana = models.CharField(max_length=3, choices=DIA_SEMANA_CHOICES)
-    periodo = models.CharField(max_length=5, choices=PERIODO_CHOICES)
-    refeicao = models.CharField(max_length=100)
-    bebida = models.CharField(max_length=100, blank=True)
+    # Manhã
+    manha_segunda = models.CharField(max_length=100)
+    manha_terca = models.CharField(max_length=100)
+    manha_quarta = models.CharField(max_length=100)
+    manha_quinta = models.CharField(max_length=100)
+    manha_sexta = models.CharField(max_length=100)
+
+    # Tarde
+    tarde_segunda = models.CharField(max_length=100)
+    tarde_terca = models.CharField(max_length=100)
+    tarde_quarta = models.CharField(max_length=100)
+    tarde_quinta = models.CharField(max_length=100)
+    tarde_sexta = models.CharField(max_length=100)
 
     def __str__(self):
-        return f"{self.get_dia_semana_display()} - {self.refeicao} + {self.bebida} ({self.get_periodo_display()})"
+        return f"Semana {self.semana}"

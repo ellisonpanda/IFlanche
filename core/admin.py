@@ -1,8 +1,4 @@
 from django.contrib import admin
-from .models import Lanche
+from .models import CardapioSemanal
 
-@admin.register(Lanche)
-class LancheAdmin(admin.ModelAdmin):
-    list_display = ['refeicao', 'bebida', 'dia_semana', 'periodo']
-    list_filter = ['dia_semana', 'periodo']
-    search_fields = ['refeicao', 'bebida']
+admin.site.register(CardapioSemanal)

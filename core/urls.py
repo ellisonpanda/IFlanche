@@ -1,7 +1,6 @@
 from django.urls import path
-from . import views
+from .views import cardapio_semana
 
 urlpatterns = [
-    path('cardapio/', views.cardapio_dia, name='cardapio_dia'),
-    path('cardapio', views.cardapio_dia),
+    path('cardapio/', cardapio_semana, name='cardapio'),
 ]

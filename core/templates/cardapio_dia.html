@@ -1,44 +1,49 @@
 {% extends 'base.html' %}
-
-{% block title %}Cardápio do Dia{% endblock %}
+{% block title %}Cardápio da Semana{% endblock %}
 
 {% block content %}
-<h2>Cardápio da Semana</h2>
+<h2 class="text-center">IFRN – Campus São Paulo do Potengi</h2>
+<h2 class="mt-4">Semana</h2>
 
-<table border="1" cellpadding="8" cellspacing="0" style="width:100%; border-collapse: collapse;">
-    <thead>
-        <tr>
-            <th>Dia</th>
-            <th>Manhã</th>
-            <th>Tarde</th>
-        </tr>
-    </thead>
-    <tbody>
-        {% for dia, periodos in cardapio.items %}
-        <tr>
-            <td>
-                {% if dia == 'SEG' %}Segunda-feira{% elif dia == 'TER' %}Terça-feira
-                {% elif dia == 'QUA' %}Quarta-feira{% elif dia == 'QUI' %}Quinta-feira
-                {% elif dia == 'SEX' %}Sexta-feira{% else %}Outro{% endif %}
-            </td>
-            <td>
-                {% for lanche in periodos.manha %}
-                    <strong>{{ lanche.refeicao }}</strong><br>
-                    <small>{{ lanche.bebida }}</small><br>
-                {% empty %}
-                    Sem lanche
-                {% endfor %}
-            </td>
-            <td>
-                {% for lanche in periodos.tarde %}
-                    <strong>{{ lanche.refeicao }}</strong><br>
-                    <small>{{ lanche.bebida }}</small><br>
-                {% empty %}
-                    Sem lanche
-                {% endfor %}
-            </td>
-        </tr>
-        {% endfor %}
-    </tbody>
+<table class="table table-bordered text-center">
+  <thead class="table-dark">
+    <tr>
+      <th style="width: 120px;">Horários dos Lanches</th> <!-- controla largura aqui -->
+      <th>Segunda<br>(12/05)</th>
+      <th>Terça<br>(13/05)</th>
+      <th>Quarta<br>(14/05)</th>
+      <th>Quinta<br>(15/05)</th>
+      <th>Sexta<br>(16/05)</th>
+    </tr>
+  </thead>
+  <tbody>
+    <!-- Manhã / Tarde / Noite tudo na mesma célula -->
+    <tr>
+      <td class="fw-bold" rowspan="3">
+        Manhã - 08:30<br>
+        Tarde - 14:30<br>
+        Noite - 20:30
+      </td>
+      <td>Biscoito cream-cracker</td>
+      <td>Bolo de Macaxeira</td>
+      <td>Cuscuz c/ carne e queijo</td>
+      <td>Biscoito</td>
+      <td>Biscoito Maria</td>
+    </tr>
+    <tr>
+      <td>suco</td>
+      <td>Café com leite</td>
+      <td>suco</td>
+      <td>Suco de fruta (polpa de fruta)</td>
+      <td>Suco de fruta (polpa de fruta)</td>
+    </tr>
+    <tr>
+      <td>—</td>
+      <td>Fruta</td>
+      <td>—</td>
+      <td>Fruta</td>
+      <td>Fruta</td>
+    </tr>
+  </tbody>
 </table>
 {% endblock %}
