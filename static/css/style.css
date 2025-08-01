@@ -1,0 +1,35 @@
+body {
+    font-family: Arial, sans-serif;
+    background-color: #e6f0e6; /* verde claro */
+    color: #333;
+    margin: 0;
+    padding: 20px;
+}
+h2 {
+    color: #2a6f2a; /* verde IFRN */
+}
+table {
+    border-collapse: collapse;
+    width: 100%;
+}
+th, td {
+    border: 1px solid #2a6f2a;
+    padding: 8px;
+    text-align: left;
+    width: 200px; /* Ajuste o valor conforme precisar */
+    word-wrap: break-word; /* Quebra texto longo */
+}
+th {
+    background-color: #4CAF50; /* verde IFRN */
+    color: white;
+}
+.table-wrapper {
+    max-height: 1000px;  /* altura máxima que a tabela pode ter */
+    overflow-y: auto;   /* ativa a rolagem vertical quando passar disso */
+}
+.alert-danger-custom {
+    background-color: #e60000; /* vermelho escuro */
+    color: white;
+    font-weight: 700;
+    border: 2px solid #b30000;
+  }

@@ -4,6 +4,6 @@ from . import views
 urlpatterns = [
     path('', views.suap_login, name='index'),
     path('logout/', views.logout_view, name='logout'),
-   path('cardapio/', views.cardapio_semana, name='cardapio'),
-  # já existente
+    path('cardapio/', views.cardapio_semana, name='cardapio'),
+    path('perfil/', views.perfil_usuario, name='perfil'),
 ]
