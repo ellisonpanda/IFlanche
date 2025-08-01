@@ -1,0 +1,55 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>{% block title %}Dashboard{% endblock %}</title>
+  <!-- Bootstrap CSS CDN -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" />
+  <!-- Seu CSS customizado -->
+  <link href="{% static 'css/style.css' %}" rel="stylesheet" />
+  {% block extra_css %}{% endblock %}
+</head>
+<body class="dashboard-layout">
+  <nav class="sidebar">
+    {% if user.perfil and user.perfil.foto %}
+      <img
+        src="{{ user.perfil.foto.url }}"
+        alt="Foto do usuário"
+        class="user-photo rounded-circle"
+      />
+    {% else %}
+      <img
+        src="https://cdn-icons-png.flaticon.com/512/149/149071.png"
+        alt="Foto padrão"
+        class="user-photo rounded-circle"
+      />
+    {% endif %}
+    <h5 class="user-name">
+      {{ user.perfil.apelido|default:user.first_name }}
+    </h5>
+
+    <a href="{% url 'perfil_usuario' %}" class="{% if request.path == '/perfil/' %}active{% endif %}">
+        👤 Perfil
+      </a>
+    <a href="{% url 'notificacoes_usuario' %}" class="{% if request.path == '/notificacoes/' %}active{% endif %}">
+        🔔 Notificações{% if notificacoes_nao_lidas > 0 %} <span class="badge bg-danger">{{ notificacoes_nao_lidas }}</span>{% endif %}
+      </a>
+      <a href="{% url 'cardapio_semana' %}">
+        🍽️ Ver cardápio da semana
+      </a>
+      <a href="{% url 'logout' %}">
+        🚪 Sair
+      </a>
+  </nav>
+
+  <main class="content">
+    {% block content %}{% endblock %}
+  </main>
+
+  <!-- Bootstrap JS CDN -->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+  {% block extra_js %}{% endblock %}
+</body>
+</html>

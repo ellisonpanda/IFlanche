@@ -36,3 +36,12 @@ class Perfil(models.Model):
 
     def __str__(self):
         return self.nome_completo or self.user.username
+
+class Notificacao(models.Model):
+    usuario = models.ForeignKey(User, on_delete=models.CASCADE, related_name='notificacoes')
+    mensagem = models.TextField()
+    lida = models.BooleanField(default=False)
+    criada_em = models.DateTimeField(auto_now_add=True)
+
+    def __str__(self):
+        return f"{self.usuario.username} - {'Lida' if self.lida else 'Não lida'}"

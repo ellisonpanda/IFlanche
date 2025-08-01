@@ -38,6 +38,8 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'core',
+    'crispy_forms',
+    'crispy_bootstrap4',
 ]
 
 MIDDLEWARE = [
@@ -117,6 +119,8 @@ USE_TZ = True
 
 STATIC_URL = '/static/'
 STATICFILES_DIRS = [BASE_DIR / "static"]
+CRISPY_TEMPLATE_PACK = 'bootstrap4'
+
 
 # Adicione estas linhas para a mídia (imagens, fotos, etc)
 MEDIA_URL = '/media/'

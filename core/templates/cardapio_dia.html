@@ -2,48 +2,51 @@
 {% block title %}Cardápio da Semana{% endblock %}
 
 {% block content %}
+<a href="{% url 'usuario_dashboard' %}" class="btn btn-voltar">← Voltar à Tela do Usuário</a>
+
 <h2 class="text-center">IFRN – Campus São Paulo do Potengi</h2>
 <h2 class="mt-4">Semana</h2>
 
-<table class="table table-bordered text-center">
-  <thead class="table-dark">
-    <tr>
-      <th style="width: 120px;">Horários dos Lanches</th> <!-- controla largura aqui -->
-      <th>Segunda<br>(12/05)</th>
-      <th>Terça<br>(13/05)</th>
-      <th>Quarta<br>(14/05)</th>
-      <th>Quinta<br>(15/05)</th>
-      <th>Sexta<br>(16/05)</th>
-    </tr>
-  </thead>
-  <tbody>
-    <!-- Manhã / Tarde / Noite tudo na mesma célula -->
-    <tr>
-      <td class="fw-bold" rowspan="3">
-        Manhã - 08:30<br>
-        Tarde - 14:30<br>
-        Noite - 20:30
-      </td>
-      <td>Biscoito cream-cracker</td>
-      <td>Bolo de Macaxeira</td>
-      <td>Cuscuz c/ carne e queijo</td>
-      <td>Biscoito</td>
-      <td>Biscoito Maria</td>
-    </tr>
-    <tr>
-      <td>suco</td>
-      <td>Café com leite</td>
-      <td>suco</td>
-      <td>Suco de fruta (polpa de fruta)</td>
-      <td>Suco de fruta (polpa de fruta)</td>
-    </tr>
-    <tr>
-      <td>—</td>
-      <td>Fruta</td>
-      <td>—</td>
-      <td>Fruta</td>
-      <td>Fruta</td>
-    </tr>
-  </tbody>
-</table>
+<div class="table-wrapper">
+  <table class="table table-bordered text-center">
+    <thead class="table-dark">
+      <tr>
+        <th style="width: 120px;">Horários dos Lanches</th>
+        <th>Segunda<br>(12/05)</th>
+        <th>Terça<br>(13/05)</th>
+        <th>Quarta<br>(14/05)</th>
+        <th>Quinta<br>(15/05)</th>
+        <th>Sexta<br>(16/05)</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td class="fw-bold" rowspan="3">
+          Manhã - 08:30<br>
+          Tarde - 14:30<br>
+          Noite - 20:30
+        </td>
+        <td>Biscoito cream-cracker</td>
+        <td>Bolo de Macaxeira</td>
+        <td>Cuscuz c/ carne e queijo</td>
+        <td>Biscoito</td>
+        <td>Biscoito Maria</td>
+      </tr>
+      <tr>
+        <td>suco</td>
+        <td>Café com leite</td>
+        <td>suco</td>
+        <td>Suco de fruta (polpa de fruta)</td>
+        <td>Suco de fruta (polpa de fruta)</td>
+      </tr>
+      <tr>
+        <td>—</td>
+        <td>Fruta</td>
+        <td>—</td>
+        <td>Fruta</td>
+        <td>Fruta</td>
+      </tr>
+    </tbody>
+  </table>
+</div>
 {% endblock %}

@@ -6,6 +6,10 @@ from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from .models import CardapioSemanal, Perfil
 from .forms import PerfilForm
+from .models import Notificacao
+from django.contrib.auth.views import LogoutView
+from django.contrib.auth.mixins import LoginRequiredMixin
+from django.views.generic import TemplateView
 
 
 def cardapio_semana(request):
@@ -48,7 +52,7 @@ def suap_login(request):
             user.save()
 
             login(request, user)
-            return redirect('perfil')  # Redireciona para a página do perfil
+            return redirect('perfil_usuario')  # redireciona para a página do perfil
 
         else:
             messages.error(request, 'Você não tem acesso ao SUAP ou suas credenciais estão incorretas.')
@@ -64,23 +68,61 @@ def logout_view(request):
 
 @login_required
 def perfil_usuario(request):
-    # Pega ou cria o perfil do usuário
     perfil, created = Perfil.objects.get_or_create(user=request.user)
+
+    # Se o perfil foi criado agora e não tem nome completo, preenche com o primeiro nome do user
+    if created and not perfil.nome_completo:
+        perfil.nome_completo = request.user.first_name
+        perfil.save()
 
     if request.method == 'POST':
         form = PerfilForm(request.POST, request.FILES, instance=perfil)
         if form.is_valid():
             form.save()
             messages.success(request, 'Perfil atualizado com sucesso!')
-            return redirect('perfil')  # Mantém na página de perfil após salvar
+            return redirect('usuario_dashboard')
         else:
-            messages.error(request, 'Erro ao atualizar o perfil. Por favor, corrija os erros.')
+            print("Erros no formulário de perfil:", form.errors)  # Debug: imprime erros no terminal
     else:
         form = PerfilForm(instance=perfil)
 
+    return render(request, 'perfil.html', {'form': form})
+
+
+
+
+@login_required
+def usuario_dashboard(request):
+    # Busca perfil associado ao usuário
+    perfil = getattr(request.user, 'perfil', None)
+
     context = {
-        'usuario': request.user,
-        'perfil': perfil,
-        'form': form,
+        'user': request.user,
+        'profile': perfil,
     }
-    return render(request, 'perfil.html', context)
+    return render(request, 'usuario_dashboard.html', context)
+
+@login_required
+def notificacoes_usuario(request):
+    notificacoes = Notificacao.objects.filter(usuario=request.user).order_by('-criada_em')
+    return render(request, 'notificacoes.html', {'notificacoes': notificacoes})
+
+def dashboard_usuario(request):
+    user = request.user
+    notificacoes_nao_lidas = Notificacao.objects.filter(usuario=user, lida=False).count()
+
+    context = {
+        'notificacoes_nao_lidas': notificacoes_nao_lidas,
+        'user': user,
+    }
+
+    return render(request, 'usuario_dashboard.html', context)
+
+    
+class DashboardView(LoginRequiredMixin, TemplateView):
+    template_name = 'usuario/dashboard.html'
+
+class CustomLogoutView(LogoutView):
+    def dispatch(self, request, *args, **kwargs):
+        messages.success(request, "Você saiu com sucesso. Até logo! 👋")
+        return super().dispatch(request, *args, **kwargs)

@@ -1,0 +1,20 @@
+{% extends 'base_usuario.html' %}
+
+{% block title %}Dashboard - {{ profile.apelido|default:profile.nome_completo|default:user.first_name }}{% endblock %}
+
+{% block content %}
+  <div class="container py-4 text-center">
+
+    <h2 class="mb-4">Bem-vindo, <span class="text-success">{{ profile.apelido|default:profile.nome_completo|default:user.first_name }}</span>!</h2>
+
+    <hr />
+
+    <h4>O que você pode fazer:</h4>
+    <ul class="list-group list-group-flush">
+      <li class="list-group-item">Editar seu perfil clicando em <strong>Perfil</strong> na barra lateral.</li>
+      <li class="list-group-item">Ver as notificações (por enquanto simples).</li>
+      <li class="list-group-item">Acessar o cardápio da semana clicando em <strong>Ver cardápio da semana</strong>.</li>
+    </ul>
+    
+  </div>
+{% endblock %}

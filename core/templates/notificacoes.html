@@ -1,0 +1,22 @@
+{% extends 'base_usuario.html' %}
+{% block title %}Notificações{% endblock %}
+
+{% block content %}
+<div class="container py-4">
+  <h2 class="mb-4">Suas Notificações</h2>
+  {% if notificacoes %}
+    <ul class="list-group">
+      {% for n in notificacoes %}
+        <li class="list-group-item {% if not n.lida %}list-group-item-warning{% endif %}">
+          <strong>{% if not n.lida %}🔔{% else %}📨{% endif %}</strong>
+          {{ n.mensagem }}
+          <br>
+          <small class="text-muted">{{ n.criada_em|date:"d/m/Y H:i" }}</small>
+        </li>
+      {% endfor %}
+    </ul>
+  {% else %}
+    <div class="alert alert-info">Nenhuma notificação por enquanto.</div>
+  {% endif %}
+</div>
+{% endblock %}
