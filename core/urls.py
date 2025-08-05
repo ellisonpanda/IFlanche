@@ -10,4 +10,6 @@ urlpatterns = [
     path('dashboard/', views.usuario_dashboard, name='usuario_dashboard'),
     path('notificacoes/', views.notificacoes_usuario, name='notificacoes_usuario'),
     path('logout/', CustomLogoutView.as_view(), name='logout'),
+    path('admin-login/', views.admin_login, name='admin_login'),
+    path('painel-admin/', views.painel_admin, name='painel_admin'),
 ]

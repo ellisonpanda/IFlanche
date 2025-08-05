@@ -1,0 +1,10 @@
+<h2>Login da Cantina</h2>
+<form method="post" action="{% url 'admin_login' %}">
+  {% csrf_token %}
+  <input type="text" name="username" placeholder="Usuário" required>
+  <input type="password" name="password" placeholder="Senha" required>
+  <button type="submit">Entrar</button>
+  {% if erro %}
+    <p style="color:red">{{ erro }}</p>
+  {% endif %}
+</form>

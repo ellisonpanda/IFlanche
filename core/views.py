@@ -10,6 +10,10 @@ from .models import Notificacao
 from django.contrib.auth.views import LogoutView
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.views.generic import TemplateView
+from django.contrib.auth.decorators import login_required, user_passes_test
+from .models import Avaliacao, Cardapio
+from django.contrib.auth import authenticate
+
 
 
 def cardapio_semana(request):
@@ -52,7 +56,7 @@ def suap_login(request):
             user.save()
 
             login(request, user)
-            return redirect('perfil_usuario')  # redireciona para a página do perfil
+            return redirect('usuario_dashboard')  # redireciona para a página do perfil
 
         else:
             messages.error(request, 'Você não tem acesso ao SUAP ou suas credenciais estão incorretas.')
@@ -126,3 +130,42 @@ class CustomLogoutView(LogoutView):
     def dispatch(self, request, *args, **kwargs):
         messages.success(request, "Você saiu com sucesso. Até logo! 👋")
         return super().dispatch(request, *args, **kwargs)
+@login_required
+def usuario_dashboard(request):
+    perfil = getattr(request.user, 'perfil', None)
+    notificacoes_nao_lidas = Notificacao.objects.filter(usuario=request.user, lida=False).count()
+
+    context = {
+        'user': request.user,
+        'profile': perfil,
+        'notificacoes_nao_lidas': notificacoes_nao_lidas,
+    }
+    return render(request, 'usuario_dashboard.html', context)
+
+
+def admin_login(request):
+    if request.method == 'POST':
+        username = request.POST['username']
+        password = request.POST['password']
+        user = authenticate(request, username=username, password=password)
+        if user is not None and user.is_staff:
+            login(request, user)
+            return redirect('painel_admin')  # Vai pra dashboard admin
+        else:
+            return render(request, 'admin_login.html', {'erro': 'Credenciais inválidas'})
+    return render(request, 'admin_login.html')
+
+def is_admin(user):
+    return user.is_superuser or user.is_staff
+
+@login_required
+@user_passes_test(is_admin)
+def painel_admin(request):
+    cardapios = Cardapio.objects.all()
+    avaliacoes = Avaliacao.objects.all()
+    notificacoes = Notificacao.objects.all()
+    return render(request, 'painel_admin.html', {
+        'cardapios': cardapios,
+        'avaliacoes': avaliacoes,
+        'notificacoes': notificacoes
+    })

@@ -29,7 +29,12 @@
     <h5 class="user-name">
       {{ user.perfil.apelido|default:user.first_name }}
     </h5>
-
+    <a href="{% url 'usuario_dashboard' %}">
+      🏠 Início
+    </a>
+    {% if user.is_staff or user.is_superuser %}
+  <li><a href="{% url 'painel_admin' %}">Painel Admin</a></li>
+    {% endif %}
     <a href="{% url 'perfil_usuario' %}" class="{% if request.path == '/perfil/' %}active{% endif %}">
         👤 Perfil
       </a>

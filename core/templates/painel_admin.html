@@ -1,0 +1,26 @@
+{% extends 'base.html' %}
+{% block content %}
+<h2>Painel Administrativo</h2>
+
+<h3>Cardápios</h3>
+<ul>
+  {% for c in cardapios %}
+    <li>{{ c.dia_semana }} - {{ c.refeicao }}</li>
+  {% endfor %}
+</ul>
+
+<h3>Notificações</h3>
+<ul>
+  {% for n in notificacoes %}
+    <li><strong>{{ n.titulo }}</strong>: {{ n.mensagem }}</li>
+  {% endfor %}
+</ul>
+
+<h3>Avaliações</h3>
+<ul>
+  {% for a in avaliacoes %}
+    <li><strong>{{ a.usuario }}</strong> avaliou {{ a.prato }} com nota {{ a.nota }} - {{ a.comentario }}</li>
+  {% endfor %}
+</ul>
+
+{% endblock %}
