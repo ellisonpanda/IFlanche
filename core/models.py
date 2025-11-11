@@ -69,6 +69,13 @@ class AdminRequest(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
     aprovado = models.BooleanField(default=False)
     data_solicitacao = models.DateTimeField(auto_now_add=True)
+    aprovado_por = models.ForeignKey(
+        User,
+        on_delete=models.SET_NULL,
+        null=True,
+        blank=True,
+        related_name='aprovacoes'
+    )
 
     def __str__(self):
-        return f"Solicitação de {self.user.username} - {'Aprovado' if self.aprovado else 'Pendente'}"
+        return f"{self.user.username} - {'Aprovado' if self.aprovado else 'Pendente'}"
