@@ -12,4 +12,5 @@ urlpatterns = [
     path('logout/', CustomLogoutView.as_view(), name='logout'),
     path('admin-login/', views.admin_login, name='admin_login'),
     path('painel-admin/', views.painel_admin, name='painel_admin'),
+    path('registrar-admin/', views.registrar_admin, name='registrar_admin'),
 ]

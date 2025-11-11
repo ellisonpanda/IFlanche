@@ -13,7 +13,10 @@ from django.views.generic import TemplateView
 from django.contrib.auth.decorators import login_required, user_passes_test
 from .models import Avaliacao, Cardapio
 from django.contrib.auth import authenticate
-
+from django.contrib.auth.decorators import user_passes_test, login_required
+from .models import AdminRequest
+from .forms import AdminRegisterForm
+from django.contrib.auth.hashers import make_password
 
 
 def cardapio_semana(request):
@@ -169,3 +172,40 @@ def painel_admin(request):
         'avaliacoes': avaliacoes,
         'notificacoes': notificacoes
     })
+
+def registrar_admin(request):
+    if request.method == 'POST':
+        username = request.POST.get('username')
+        email = request.POST.get('email')
+        password = request.POST.get('password')
+
+        if User.objects.filter(username=username).exists():
+            messages.error(request, '❌ Este nome de usuário já está registrado.')
+            return redirect('registrar_admin')
+
+        # Cria o usuário inativo aguardando aprovação do master
+        user = User.objects.create(
+            username=username,
+            email=email,
+            password=make_password(password),
+            is_active=False  # o master vai liberar depois
+        )
+
+        messages.success(
+            request,
+            '✅ Solicitação enviada com sucesso! Aguarde a aprovação do administrador master.'
+        )
+        return redirect('admin_login')
+
+    # 🟣 Aqui tá o nome real do seu arquivo
+    return render(request, 'admin_registrar.html')
+
+
+def is_admin_aprovado(user):
+    return user.is_staff and hasattr(user, 'adminrequest') and user.adminrequest.aprovado
+
+
+@login_required
+@user_passes_test(is_admin_aprovado)
+def painel_admin(request):
+    return render(request, 'painel_admin.html')

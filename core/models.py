@@ -64,3 +64,11 @@ class Cardapio(models.Model):
 
     def __str__(self):
         return self.titulo
+
+class AdminRequest(models.Model):
+    user = models.OneToOneField(User, on_delete=models.CASCADE)
+    aprovado = models.BooleanField(default=False)
+    data_solicitacao = models.DateTimeField(auto_now_add=True)
+
+    def __str__(self):
+        return f"Solicitação de {self.user.username} - {'Aprovado' if self.aprovado else 'Pendente'}"
