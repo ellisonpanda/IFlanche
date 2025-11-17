@@ -1,14 +1,6 @@
 from django.db import models
 from django.contrib.auth.models import User
 
-DIAS_SEMANA = [
-    ('segunda', 'Segunda-feira'),
-    ('terca', 'Terça-feira'),
-    ('quarta', 'Quarta-feira'),
-    ('quinta', 'Quinta-feira'),
-    ('sexta', 'Sexta-feira'),
-]
-
 class CardapioSemanal(models.Model):
     semana = models.CharField(max_length=20)
     # Manhã
@@ -54,16 +46,6 @@ class Avaliacao(models.Model):
 
     def __str__(self):
         return f"{self.usuario} avaliou {self.prato}"
-
-# Novo modelo para substituir o Cardapio quebrado
-class Cardapio(models.Model):
-    titulo = models.CharField(max_length=100)
-    descricao = models.TextField()
-    preco = models.DecimalField(max_digits=6, decimal_places=2)
-    criado_em = models.DateTimeField(auto_now_add=True)
-
-    def __str__(self):
-        return self.titulo
 
 class AdminRequest(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)

@@ -1,0 +1,60 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Cardápio da Semana{% endblock %}
+
+{% block content %}
+<div class="container mt-4">
+    <div class="row">
+        <div class="col-md-10 mx-auto">
+            
+            <div class="text-end mb-2">
+                <a href="{% url 'logout' %}" class="btn btn-outline-danger btn-sm">Sair</a>
+            </div>
+
+            <h2 class="mb-4 text-center">Cardápio da Semana</h2>
+
+            <div class="table-responsive shadow-sm">
+                <table class="table table-bordered text-center align-middle">
+                    
+                    <thead class="table-success">
+                        <tr>
+                            <th style="width: 15%;">Refeição</th>
+                            <th style="width: 17%;">Segunda-feira</th>
+                            <th style="width: 17%;">Terça-feira</th>
+                            <th style="width: 17%;">Quarta-feira</th>
+                            <th style="width: 17%;">Quinta-feira</th>
+                            <th style="width: 17%;">Sexta-feira</th>
+                        </tr>
+                    </thead>
+                    
+                    <tbody>
+                        <tr>
+                            <td><strong>Lanche da Manhã</strong></td>
+                            <td>{{ cardapio.manha_segunda|default:"-" }}</td>
+                            <td>{{ cardapio.manha_terca|default:"-" }}</td>
+                            <td>{{ cardapio.manha_quarta|default:"-" }}</td>
+                            <td>{{ cardapio.manha_quinta|default:"-" }}</td>
+                            <td>{{ cardapio.manha_sexta|default:"-" }}</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Lanche da Tarde</strong></td>
+                            <td>{{ cardapio.tarde_segunda|default:"-" }}</td>
+                            <td>{{ cardapio.tarde_terca|default:"-" }}</td>
+                            <td>{{ cardapio.tarde_quarta|default:"-" }}</td>
+                            <td>{{ cardapio.tarde_quinta|default:"-" }}</td>
+                            <td>{{ cardapio.tarde_sexta|default:"-" }}</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <div class="alert alert-info mt-4">
+                <strong>Aviso:</strong> O cardápio é cadastrado pela administração. 
+                Se a tabela estiver com "-", é porque o cardápio desta semana ainda não foi publicado.
+            </div>
+
+        </div>
+    </div>
+</div>
+{% endblock %}
